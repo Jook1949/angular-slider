@@ -57,12 +57,16 @@ sliderDirective = ($timeout) ->
     ngModelLow:   '=?'
     ngModelHigh:  '=?'
   template: '''
-    <div class="bar"><div class="selection"></div></div>
-    <div class="handle low"></div><div class="handle high"></div>
-    <div class="bubble limit low">{{ values.length ? values[floor || 0] : floor }}</div>
-    <div class="bubble limit high">{{ values.length ? values[ceiling || values.length - 1] : ceiling }}</div>
-    <div class="bubble value low">{{ values.length ? values[local.ngModelLow || local.ngModel || 0] : local.ngModelLow || local.ngModel || 0 }}</div>
-    <div class="bubble value high">{{ values.length ? values[local.ngModelHigh] : local.ngModelHigh }}</div>'''
+    <div class="slider-range"><div class="slider-bar selection"></div></div>
+    <div class="slider-handle low"></div>
+    <div class="slider-handle high"></div>
+    <div class="filter-ui-slider-value">
+      <span class="filter-ui-slider-value-min">
+        {{ values.length ? values[local.ngModelLow || local.ngModel || 0] : local.ngModelLow || local.ngModel || 0 }}
+      </span> - <span class="filter-ui-slider-value-max">
+        {{ values.length ? values[local.ngModelHigh] : local.ngModelHigh }}
+      </span>
+    </div>'''
   compile: (element, attributes) ->
 
     # Check if it is a range slider
@@ -77,8 +81,9 @@ sliderDirective = ($timeout) ->
 
     post: (scope, element, attributes) ->
       # Get references to template elements
-      [bar, minPtr, maxPtr, flrBub, ceilBub, lowBub, highBub] = (angularize(e) for e in element.children())
+      [bar, minPtr, maxPtr, valText] = (angularize(e) for e in element.children())
       selection = angularize bar.children()[0]
+      [lowBub, highBub] = (angularize(e) for e in valText.children())
 
       # Remove range specific elements if not a range slider
       unless range
@@ -131,7 +136,6 @@ sliderDirective = ($timeout) ->
         pixelsToOffset = (percent) -> pixelize percent * offsetRange / 100
 
         setPointers = ->
-          offset ceilBub, pixelize(barWidth - width(ceilBub))
           newLowValue = percentValue scope.local[low]
           offset minPtr, pixelsToOffset newLowValue
           offset lowBub, pixelize(offsetLeft(minPtr) - (halfWidth lowBub) + handleHalfWidth)
