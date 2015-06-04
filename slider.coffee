@@ -64,11 +64,9 @@ sliderDirective = ($timeout) ->
     <div class="slider-handle high"></div>
     <div class="filter-ui-slider-value">
       <span class="filter-ui-slider-value-min">
-        {{ prefix }}
-        {{ values.length ? values[local.ngModelLow || local.ngModel || 0] : local.ngModelLow || local.ngModel || 0 }}
+        {{ prefix }}{{ values.length ? values[local.ngModelLow || local.ngModel || 0] : local.ngModelLow || local.ngModel || 0 }}
       </span> - <span class="filter-ui-slider-value-max">
-        {{ prefix }}
-        {{ values.length ? values[local.ngModelHigh] : local.ngModelHigh }}
+        {{ prefix }}{{ values.length ? values[local.ngModelHigh] : local.ngModelHigh }}
         {{ suffix }}
       </span>
     </div>'''

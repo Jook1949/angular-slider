@@ -101,7 +101,7 @@
         prefix: '@',
         suffix: '@'
       },
-      template: '<div class="slider-range"><div class="slider-bar selection"></div></div>\n<div class="slider-handle low"></div>\n<div class="slider-handle high"></div>\n<div class="filter-ui-slider-value">\n  <span class="filter-ui-slider-value-min">\n    {{ prefix }}\n    {{ values.length ? values[local.ngModelLow || local.ngModel || 0] : local.ngModelLow || local.ngModel || 0 }}\n  </span> - <span class="filter-ui-slider-value-max">\n    {{ prefix }}\n    {{ values.length ? values[local.ngModelHigh] : local.ngModelHigh }}\n    {{ suffix }}\n  </span>\n</div>',
+      template: '<div class="slider-range"><div class="slider-bar selection"></div></div>\n<div class="slider-handle low"></div>\n<div class="slider-handle high"></div>\n<div class="filter-ui-slider-value">\n  <span class="filter-ui-slider-value-min">\n    {{ prefix }}{{ values.length ? values[local.ngModelLow || local.ngModel || 0] : local.ngModelLow || local.ngModel || 0 }}\n  </span> - <span class="filter-ui-slider-value-max">\n    {{ prefix }}{{ values.length ? values[local.ngModelHigh] : local.ngModelHigh }}\n    {{ suffix }}\n  </span>\n</div>',
       compile: function(element, attributes) {
         var high, low, range, watchables;
         range = (attributes.ngModel == null) && (attributes.ngModelLow != null) && (attributes.ngModelHigh != null);
